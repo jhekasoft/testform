@@ -1,0 +1,4 @@
+services:
+#    jhekasoft_registration.example:
+#        class: Jhekasoft\Bundle\RegistrationBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

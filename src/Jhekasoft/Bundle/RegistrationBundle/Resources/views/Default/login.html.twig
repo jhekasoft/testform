@@ -1,0 +1,27 @@
+{% extends "JhekasoftRegistrationBundle::layout.html.twig" %}
+
+{% block content %}
+    <h1>Login</h1>
+
+    {% if error %}
+        <div class="error">{{ error.message }}</div>
+    {% endif %}
+
+    <form action="{{ path("_registration_security_check") }}" method="post" id="login">
+        <div>
+            <label for="username">Email</label>
+            <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control" />
+        </div>
+
+        <div>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="_password" class="form-control" />
+        </div>
+
+        <button type="submit" class="btn btn-success">
+            Login
+        </button>
+    </form>
+
+    <p><a href="{{ path('_registration_register') }}">Register</a></p>
+{% endblock %}

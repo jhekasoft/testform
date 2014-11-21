@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Jhekasoft Testform{% endblock %}</title>
+        {% block head %}
+            <link rel="icon" sizes="16x16" href="{{ asset('favicon.ico') }}" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            {% stylesheets '../app/Resources/public/css/*' %}
+                <link rel="stylesheet" href="{{ asset_url }}" />
+            {% endstylesheets %}
+            <!--[if lt IE 9]>
+                <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+            <![endif]-->
+            {#% javascripts '../app/Resources/public/js/*' %}
+                <script src="{{ asset_url }}" type="text/javascript"></script>
+            {% endjavascripts %#}
+        {% endblock %}
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body>
+        <div class="wrapper">
+
+            <header class="header">
+                <div class="container">
+                    Fancy Survey
+                </div>
+            </header><!-- .header-->
+
+            {% block body %}{% endblock %}
+
+        </div><!-- .wrapper -->
+
+        <footer class="footer">
+            <div class="footer-text container center">
+                &copy; Copyright Fancy Survey 2013
+            </div>
+        </footer><!-- .footer -->
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

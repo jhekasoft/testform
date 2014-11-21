@@ -1,0 +1,14 @@
+jhekasoft_testform:
+    resource: "@JhekasoftTestformBundle/Resources/config/routing.yml"
+    prefix:   /
+
+jhekasoft_registration:
+    resource: "@JhekasoftRegistrationBundle/Resources/config/routing.yml"
+
+# redirecting the root
+root:
+    path: /
+    defaults:
+        _controller: FrameworkBundle:Redirect:urlRedirect
+        path: /testform
+        permanent: true

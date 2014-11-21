@@ -1,0 +1,44 @@
+# you can read more about security in the related section of the documentation
+# http://symfony.com/doc/current/book/security.html
+security:
+    # http://symfony.com/doc/current/book/security.html#encoding-the-user-s-password
+    encoders:
+        Jhekasoft\Bundle\RegistrationBundle\Entity\User:
+            algorithm: sha1
+            encode_as_base64: false
+            iterations: 1
+
+    # http://symfony.com/doc/current/book/security.html#hierarchical-roles
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
+    # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
+    providers:
+        main:
+            entity:
+                class: Jhekasoft\Bundle\RegistrationBundle\Entity\User
+                property: email
+
+    # the main part of the security, where you can set up firewalls
+    # for specific sections of your app
+    firewalls:
+        # the login page has to be accessible for everybody
+        registrationlogin:
+            pattern:  ^/registration/(login|register|create|completed.*|verificate.*)$
+            security: false
+        registration:
+            pattern:    ^/registration
+            form_login:
+                check_path: _registration_security_check
+                login_path: _registration_login
+            logout:
+                path:   _registration_logout
+                target: _registration_welcome
+            anonymous: ~
+
+    # with these settings you can restrict or allow access for different parts
+    # of your application based on roles, ip, host or methods
+    # http://symfony.com/doc/current/book/security.html#security-book-access-control-matching-options
+    access_control:
+        - { path: ^/, roles: ROLE_USER }

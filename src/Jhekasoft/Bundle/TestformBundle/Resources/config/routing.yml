@@ -1,0 +1,3 @@
+_testform_homepage:
+    path:     /testform
+    defaults: { _controller: JhekasoftTestformBundle:Default:index }
