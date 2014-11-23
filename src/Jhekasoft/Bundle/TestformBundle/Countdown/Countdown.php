@@ -49,6 +49,14 @@ class Countdown
         $this->session->remove($this->sessionNamespace . '_testform_started');
     }
 
+    public function isStarted() {
+        if ($this->session->has($this->sessionNamespace . '_testform_started')) {
+            return true;
+        }
+
+        return false;
+    }
+
     public function getSecondsLeft() {
         $currentDateTime = new \DateTime();
 

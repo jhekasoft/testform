@@ -1,0 +1,55 @@
+{% extends "::base.html.twig" %}
+
+{% block head %}
+    {{ parent() }}
+
+    {% if countdownInit %}
+        {% javascripts
+            '@JhekasoftTestformBundle/Resources/public/js/countdown.js'
+        %}
+            <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+
+        <script type="text/javascript">
+            Countdown.questionsUrl = '{{ path('_testform_questions') }}';
+            Countdown.savePersonalDataUrl = '{{ path('_testform_save_personal_data') }}';
+            Countdown.saveQuestionsUrl = '{{ path('_testform_save_questions') }}';
+            Countdown.winUrl = '{{ path('_testform_win') }}';
+            Countdown.start({{ startTimestamp }}, {{ countdownSeconds }}, {{ secondsLeft }}, function(secondsLeft) {
+                $('.timer-seconds-number').text(secondsLeft.toFixed(1));
+                if (secondsLeft <= 0) {
+                    alert("Your time has left!");
+                    window.location = '{{ path('_testform_restart') }}';
+                }
+            });
+        </script>
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+<main class="container content">
+    <div class="top-block">
+        <div class="inline-block">
+            <h2><span>Getting your</span> awesome prize is easy!</h2>
+            <ul>
+                <li><span class="list-bulb">1</span>Sign up and complete a suvey</li>
+                <li><span class="list-bulb">2</span>Tell us more about yourself</li>
+                <li><span class="list-bulb">3</span>Get an awesome prize!</li>
+            </ul>
+        </div>
+        <div class="main-timer inline-block">
+            <div>Time remaining to complete your tasks</div>
+            <div class="timer-seconds">
+                <span class="timer-seconds-number">{{ secondsLeft|number_format(1) }}</span>
+                <span class="timer-seconds-label">seconds</span>
+            </div>
+        </div>
+        <div class="clr"></div>
+    </div>
+
+    <div class="main-form-block">
+        {% block testform_content %}
+        {% endblock %}
+    </div>
+</main><!-- .content -->
+{% endblock %}

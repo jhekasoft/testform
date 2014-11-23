@@ -6,7 +6,9 @@ var Countdown = {
     changeCallback: null,
     timeout: null,
     savePersonalDataUrl: '',
+    saveQuestionsUrl: '',
     questionsUrl: '',
+    winUrl: '',
     start: function(startTimestamp, countdownSeconds, secondsLeft, changeCallback) {
         self.startTimestamp = startTimestamp;
         self.countdownSeconds = countdownSeconds;
@@ -41,8 +43,29 @@ var Countdown = {
             url: Countdown.savePersonalDataUrl,
             data: formData
         }).done(function(response) {
-            if ('ok' == response.result && response.listHtml) {
+            if ('ok' == response.result) {
                 window.location = Countdown.questionsUrl;
+            }
+
+            if (response.addFormHtml) {
+                $('.main-form-container').html(response.addFormHtml);
+            }
+
+            //Countdown.hideAddSpinner();
+        });
+    },
+    saveQuestions: function() {
+        formData = $('.main-form-container form').serialize();
+
+        //self.showAddSpinner();
+
+        $.ajax({
+            type: "POST",
+            url: Countdown.saveQuestionsUrl,
+            data: formData
+        }).done(function(response) {
+            if ('ok' == response.result) {
+                window.location = Countdown.winUrl;
             }
 
             if (response.addFormHtml) {

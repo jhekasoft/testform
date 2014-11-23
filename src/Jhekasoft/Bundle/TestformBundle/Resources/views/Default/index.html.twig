@@ -1,49 +1,9 @@
-{% extends "::base.html.twig" %}
+{% extends "JhekasoftTestformBundle:Default:testformCommon.html.twig" %}
 
-{% block head %}
-    {{ parent() }}
-    {% javascripts
-        '@JhekasoftTestformBundle/Resources/public/js/countdown.js'
-    %}
-        <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}
-
-    <script type="text/javascript">
-        Countdown.savePersonalDataUrl = '{{ path('_testform_save_personal_data') }}';
-        Countdown.questionsUrl = '{{ path('_testform_questions') }}';
-        Countdown.start({{ startTimestamp }}, {{ countdownSeconds }}, {{ secondsLeft }}, function(secondsLeft) {
-            $('.timer-seconds-number').text(secondsLeft.toFixed(1));
-        });
-    </script>
-{% endblock %}
-
-{% block body %}
-<main class="container content">
-    <div class="top-block">
-        <div class="inline-block">
-            <h2><span>Getting your</span> awesome prize is easy!</h2>
-            <ul>
-                <li><span class="list-bulb">1</span>Sign up and complete a suvey</li>
-                <li><span class="list-bulb">2</span>Tell us more about yourself</li>
-                <li><span class="list-bulb">3</span>Get an awesome prize!</li>
-            </ul>
-        </div>
-        <div class="main-timer inline-block">
-            <div>Time remaining to complete your tasks</div>
-            <div class="timer-seconds">
-                <span class="timer-seconds-number">{{ secondsLeft|number_format(1) }}</span>
-                <span class="timer-seconds-label">seconds</span>
-            </div>
-        </div>
-        <div class="clr"></div>
-    </div>
-
-    <div class="main-form-block">
+{% block testform_content %}
         <h2 class="main-form-title">Step One</h2>
         <div class="main-form-description">Start by giving us all your personal data</div>
         <div class="main-form-container">
             {{ include('JhekasoftTestformBundle:Default:personalDataForm.html.twig', { 'form': form }) }}
         </div>
-    </div>
-</main><!-- .content -->
 {% endblock %}

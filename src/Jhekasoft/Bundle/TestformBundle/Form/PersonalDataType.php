@@ -33,6 +33,7 @@ class PersonalDataType extends AbstractType
             'input'  => 'datetime',
             'widget' => 'choice',
             'years'  => $years,
+            'attr' => array('class' => 'form-element'),
         ));
 
         $builder->add('shoeSize', 'text', array(
@@ -41,7 +42,6 @@ class PersonalDataType extends AbstractType
 
         $builder->add('submit', 'submit', array(
             'label' => 'Save',
-            'attr' => array('class' => 'btn btn-success glyphicon glyphicon-ok'),
         ));
     }
 

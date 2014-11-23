@@ -18,82 +18,87 @@ class Testform
     protected $id;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
     protected $ip;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
     protected $firstname;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
     protected $lastname;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
     protected $email;
 
     /**
-     * @ORM\Column(type="datetime", name="birthday_date")
+     * @ORM\Column(type="datetime", name="birthday_date", nullable=true)
      */
     protected $birthdayDate;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=100, name="shoe_size", nullable=true)
      */
     protected $shoeSize;
 
     /**
-     * @ORM\Column(type="boolean", name="personal_data_setted")
+     * @ORM\Column(type="boolean", name="personal_data_setted", nullable=true)
      */
     protected $personalDataSetted;
 
     /**
-     * @ORM\Column(type="string", length=100, name="shoe_size")
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
     protected $answer1;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
     protected $answer2;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
     protected $answer3;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
     protected $answer4;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=100, nullable=true)
      */
     protected $answer5;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true)
      */
     protected $ended;
 
     /**
-     * @ORM\Column(type="datetime", name="ended_at")
+     * @ORM\Column(type="datetime", name="ended_at", nullable=true)
      */
     protected $endedAt;
 
     /**
-     * @ORM\Column(type="datetime", name="created_at")
+     * @ORM\Column(type="string", length=100, name="result_seconds", nullable=true)
+     */
+    protected $resultSeconds;
+
+    /**
+     * @ORM\Column(type="datetime", name="created_at", nullable=true)
      */
     protected $createdAt;
 
     /**
-     * @ORM\Column(type="datetime", name="updated_at")
+     * @ORM\Column(type="datetime", name="updated_at", nullable=true)
      */
     protected $updatedAt;
 
@@ -451,5 +456,28 @@ class Testform
     public function getEndedAt()
     {
         return $this->endedAt;
+    }
+
+    /**
+     * Set personalDataSetted
+     *
+     * @param boolean $personalDataSetted
+     * @return Testform
+     */
+    public function setPersonalDataSetted($personalDataSetted)
+    {
+        $this->personalDataSetted = $personalDataSetted;
+
+        return $this;
+    }
+
+    /**
+     * Get personalDataSetted
+     *
+     * @return boolean
+     */
+    public function getPersonalDataSetted()
+    {
+        return $this->personalDataSetted;
     }
 }

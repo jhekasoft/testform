@@ -10,6 +10,14 @@ _testform_save_personal_data:
     path:     /testform/save-personal-data
     defaults: { _controller: JhekasoftTestformBundle:Default:savePersonalData }
 
+_testform_save_questions:
+    path:     /testform/save-questions
+    defaults: { _controller: JhekasoftTestformBundle:Default:saveQuestions }
+
 _testform_questions:
     path:     /testform/questions
-    defaults: { _controller: JhekasoftTestformBundle:Default:question }
+    defaults: { _controller: JhekasoftTestformBundle:Default:questions }
+
+_testform_win:
+    path:     /testform/win
+    defaults: { _controller: JhekasoftTestformBundle:Default:win }

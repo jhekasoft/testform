@@ -88,6 +88,11 @@ class Testform
     protected $endedAt;
 
     /**
+     * @ORM\Column(type="string", length=100, name="result_seconds", nullable=true)
+     */
+    protected $resultSeconds;
+
+    /**
      * @ORM\Column(type="datetime", name="created_at", nullable=true)
      */
     protected $createdAt;
@@ -474,5 +479,28 @@ class Testform
     public function getPersonalDataSetted()
     {
         return $this->personalDataSetted;
+    }
+
+    /**
+     * Set resultSeconds
+     *
+     * @param string $resultSeconds
+     * @return Testform
+     */
+    public function setResultSeconds($resultSeconds)
+    {
+        $this->resultSeconds = $resultSeconds;
+
+        return $this;
+    }
+
+    /**
+     * Get resultSeconds
+     *
+     * @return string 
+     */
+    public function getResultSeconds()
+    {
+        return $this->resultSeconds;
     }
 }

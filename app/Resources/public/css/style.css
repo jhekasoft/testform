@@ -141,6 +141,15 @@ body {
     text-align: center;
 }
 
+.main-form-container label {
+    display: inline-block;
+    width: 200px;
+}
+
+.main-form-container .form-element {
+    display: inline-block;
+}
+
 /* Footer
 -----------------------------------------------------------------------------*/
 .footer {
