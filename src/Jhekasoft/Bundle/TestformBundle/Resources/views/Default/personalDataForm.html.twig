@@ -1,0 +1,9 @@
+{{ form(form) }}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('form[name="personal_data"]').submit(function() {
+            Countdown.savePersonalData();
+            return false;
+        });
+    });
+</script>

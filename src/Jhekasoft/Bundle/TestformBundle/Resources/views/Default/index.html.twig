@@ -1,5 +1,22 @@
 {% extends "::base.html.twig" %}
 
+{% block head %}
+    {{ parent() }}
+    {% javascripts
+        '@JhekasoftTestformBundle/Resources/public/js/countdown.js'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    <script type="text/javascript">
+        Countdown.savePersonalDataUrl = '{{ path('_testform_save_personal_data') }}';
+        Countdown.questionsUrl = '{{ path('_testform_questions') }}';
+        Countdown.start({{ startTimestamp }}, {{ countdownSeconds }}, {{ secondsLeft }}, function(secondsLeft) {
+            $('.timer-seconds-number').text(secondsLeft.toFixed(1));
+        });
+    </script>
+{% endblock %}
+
 {% block body %}
 <main class="container content">
     <div class="top-block">
@@ -14,7 +31,7 @@
         <div class="main-timer inline-block">
             <div>Time remaining to complete your tasks</div>
             <div class="timer-seconds">
-                342.1
+                <span class="timer-seconds-number">{{ secondsLeft|number_format(1) }}</span>
                 <span class="timer-seconds-label">seconds</span>
             </div>
         </div>
@@ -25,34 +42,7 @@
         <h2 class="main-form-title">Step One</h2>
         <div class="main-form-description">Start by giving us all your personal data</div>
         <div class="main-form-container">
-            <form class="test-form">
-                <div class="test-form-left">
-                    <div>
-                        <label>First name</label><input type="text">
-                    </div>
-                    <div>
-                        <label>Second name</label><input type="text">
-                    </div>
-                    <div>
-                        <label>Birthdat</label>
-                        <select>
-                            <option>1989</option>
-                            <option>1988</option>
-                        </select>
-                        <select>
-                            <option>01</option>
-                            <option>02</option>
-                        </select>
-                        <select>
-                            <option>01</option>
-                            <option>02</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="test-form-right">
-                    <button type="submit">Save</button>
-                </div>
-            </form>
+            {{ include('JhekasoftTestformBundle:Default:personalDataForm.html.twig', { 'form': form }) }}
         </div>
     </div>
 </main><!-- .content -->

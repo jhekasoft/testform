@@ -1,3 +1,15 @@
 _testform_homepage:
     path:     /testform
     defaults: { _controller: JhekasoftTestformBundle:Default:index }
+
+_testform_restart:
+    path:     /testform/restart
+    defaults: { _controller: JhekasoftTestformBundle:Default:restart }
+
+_testform_save_personal_data:
+    path:     /testform/save-personal-data
+    defaults: { _controller: JhekasoftTestformBundle:Default:savePersonalData }
+
+_testform_questions:
+    path:     /testform/questions
+    defaults: { _controller: JhekasoftTestformBundle:Default:question }

@@ -6,6 +6,9 @@ Installation
 ```sh
 php composer.phar install
 ```
+```sh
+php app/console doctrine:database:create
+```
 
 ```sh
 php app/console assets:install web

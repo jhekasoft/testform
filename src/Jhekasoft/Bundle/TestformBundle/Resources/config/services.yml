@@ -1,4 +1,11 @@
 services:
+    request_injector:
+        class: Jhekasoft\Bundle\TestformBundle\Countdown\RequestInjector
+        public: false
+        arguments: [@service_container]
+    countdown:
+        class: Jhekasoft\Bundle\TestformBundle\Countdown\Countdown
+        arguments: [@request_injector, @doctrine.orm.entity_manager, "countdown", 360]
 #    jhekasoft_testform.example:
 #        class: Jhekasoft\Bundle\TestformBundle\Example
 #        arguments: [@service_id, "plain_value", %parameter%]
