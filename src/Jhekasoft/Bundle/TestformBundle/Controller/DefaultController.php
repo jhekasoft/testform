@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\DomCrawler\Crawler;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Jhekasoft\Bundle\TestformBundle\Form\PersonalDataType;
 use Jhekasoft\Bundle\TestformBundle\Form\QuestionsType;
 
@@ -108,18 +110,25 @@ class DefaultController extends Controller
         $form = $this->createForm(new PersonalDataType(), $testform, array('csrf_protection' => false));
         $form->handleRequest($request);
 
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($testform);
+
         if ($form->isValid()) {
             $testform->setUpdatedAt(new \DateTime());
             $testform->setPersonalDataSetted(true);
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($testform);
             $em->flush();
 
             return new JsonResponse(array(
                 'result' => 'ok',
             ));
         }
+
+        // Write errorlogs
+        $errorlogs = $testform->getErrorlogs();
+        $errorlogs[] = $form->getErrorsAsString();
+        $testform->setErrorlogs($errorlogs);
+        $em->flush();
 
         $formHtml = $this->renderView('JhekasoftTestformBundle:Default:personalDataForm.html.twig', array('form' => $form->createView()));
         return new JsonResponse(array(
@@ -150,6 +159,9 @@ class DefaultController extends Controller
         $form = $this->createForm(new QuestionsType(), $testform, array('csrf_protection' => false));
         $form->handleRequest($request);
 
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($testform);
+
         if ($form->isValid()) {
             $now = new \DateTime();
             $testform->setResultSeconds($countdown->getSecondsLeft());
@@ -157,8 +169,6 @@ class DefaultController extends Controller
             $testform->setEndedAt($now);
             $testform->setEnded(true);
 
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($testform);
             $em->flush();
 
             return new JsonResponse(array(
@@ -166,10 +176,40 @@ class DefaultController extends Controller
             ));
         }
 
+        // Write errorlogs
+        $errorlogs = $testform->getErrorlogs();
+        $errorlogs[] = $form->getErrorsAsString();
+        $testform->setErrorlogs($errorlogs);
+        $em->flush();
+
         $formHtml = $this->renderView('JhekasoftTestformBundle:Default:questionsForm.html.twig', array('form' => $form->createView()));
         return new JsonResponse(array(
             'result' => 'fail',
             'addFormHtml' => $formHtml,
         ));
+    }
+
+    public function exportedDocumentAction()
+    {
+        $filename = 'testform_export.xml';
+        $kernel = $this->get('kernel');
+        $basePath = $kernel->locateResource('@JhekasoftTestformBundle');
+        $filePath = $basePath . '/Resources/export/' . $filename;
+
+        // Check if file exists
+        if (!file_exists($filePath)) {
+            throw $this->createNotFoundException();
+        }
+
+        // Prepare BinaryFileResponse
+        $response = new BinaryFileResponse($filePath);
+        $response->trustXSendfileTypeHeader();
+        $response->setContentDisposition(
+            ResponseHeaderBag::DISPOSITION_INLINE,
+            $filename,
+            $filename
+        );
+
+        return $response;
     }
 }

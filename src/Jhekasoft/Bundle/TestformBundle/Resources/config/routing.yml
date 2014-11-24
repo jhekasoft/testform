@@ -21,3 +21,7 @@ _testform_questions:
 _testform_win:
     path:     /testform/win
     defaults: { _controller: JhekasoftTestformBundle:Default:win }
+
+_testform_exported_document:
+    path:     /api/stream
+    defaults: { _controller: JhekasoftTestformBundle:Default:exportedDocument }

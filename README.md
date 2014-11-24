@@ -21,3 +21,12 @@ php app/console assetic:dump
 ```sh
 php app/console doctrine:schema:update --force
 ```
+
+Export
+------
+
+```sh
+php app/console testform:export [email]
+```
+
+Link: /api/stream

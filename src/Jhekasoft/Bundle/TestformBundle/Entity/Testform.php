@@ -102,6 +102,11 @@ class Testform
      */
     protected $updatedAt;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    protected $errorlogs;
+
 
     /**
      * Get id
@@ -497,10 +502,39 @@ class Testform
     /**
      * Get resultSeconds
      *
-     * @return string 
+     * @return string
      */
     public function getResultSeconds()
     {
         return $this->resultSeconds;
+    }
+
+    public function getAnswer($number)
+    {
+        return $this->{"answer{$number}"};
+    }
+
+    /**
+     * Set errorlogs
+     *
+     * @param array $errorlogs
+     * @return Testform
+     */
+    public function setErrorlogs(array $errorlogs)
+    {
+        $this->errorlogs = serialize($errorlogs);
+
+        return $this;
+    }
+
+    /**
+     * Get errorlogs
+     *
+     * @return array
+     */
+    public function getErrorlogs()
+    {
+
+        return isset($this->errorlogs)?unserialize($this->errorlogs):array();
     }
 }
