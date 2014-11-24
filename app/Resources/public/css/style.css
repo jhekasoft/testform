@@ -150,6 +150,10 @@ body {
     display: inline-block;
 }
 
+.main-form-container ul {
+    display: inline-block;
+}
+
 /* Footer
 -----------------------------------------------------------------------------*/
 .footer {

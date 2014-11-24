@@ -111,10 +111,11 @@ class ExportCommand extends ContainerAwareCommand
             $item->setAttribute('ended', (int) $testformItem->getEnded());
 
             // Answers
+            $questions = $this->getContainer()->getParameter('questions');
             $answers = $xml->createElement("answers");
             for ($i = 1; $i <= 5; $i++) {
                 $answer = $xml->createElement("answer");
-                $answer->setAttribute('question', "answer{$i}");
+                $answer->setAttribute('question', $questions[$i]);
                 $answerText = $xml->createTextNode($testformItem->getAnswer($i));
                 $answer->appendChild($answerText);
                 $answers->appendChild($answer);

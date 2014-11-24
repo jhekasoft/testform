@@ -24,3 +24,10 @@ parameters:
     use_assetic_controller: true
 
     info_email: ~
+
+    questions:
+        1: What is your favorite ice cream?
+        2: What is your favorite superhero?
+        3: What is your favorite movie start?
+        4: When do you think the world will end?
+        5: Who will win the super bowl this year?

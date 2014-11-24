@@ -50,7 +50,8 @@ class DefaultController extends Controller
             return $this->redirect($this->generateUrl('_testform_homepage'));
         }
 
-        $form = $this->createForm(new QuestionsType(), null, array('csrf_protection' => false));
+        $form = $this->createForm(new QuestionsType($this->container->getParameter('questions')),
+                null, array('csrf_protection' => false));
 
         return $this->render('JhekasoftTestformBundle:Default:questions.html.twig', array(
             'countdownSeconds' => $countdown->getCountdownSeconds(),
@@ -156,7 +157,8 @@ class DefaultController extends Controller
             ));
         }
 
-        $form = $this->createForm(new QuestionsType(), $testform, array('csrf_protection' => false));
+        $form = $this->createForm(new QuestionsType($this->container->getParameter('questions')),
+                $testform, array('csrf_protection' => false));
         $form->handleRequest($request);
 
         $em = $this->getDoctrine()->getManager();
